@@ -1,0 +1,13 @@
+[
+	{
+		"title": "Schweppes Tónica 250ml",
+		"description": "Tónica clásica con un equilibrado sabor a quinina, perfecta para combinar con tu ginebra favorita.",
+		"price": 650,
+		"thumbnail": "www.imagen.com/schweppes-tonica",
+		"code": "s250",
+		"stock": 15,
+		"id": 1,
+		"status": true,
+		"category": "gaseosas"
+	}
+]
