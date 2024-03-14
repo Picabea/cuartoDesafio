@@ -2,6 +2,7 @@ const { Router } = require('express')
 const cart = require('../carts.js')
 const router = Router()
 
+
 router.post('/', (req, res) => {
     const products = req.body
     if(products.length >= 1){
@@ -28,4 +29,6 @@ router.get('/:cid', (req, res) => {
     cart.getCartById(cid)
     .then(response => res.send(response))
 })
+
 module.exports = router
+
