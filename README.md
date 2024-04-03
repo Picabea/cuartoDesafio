@@ -22,4 +22,6 @@ Los routers cuentan con los siguientes protocolos:
 
 
 
-Aclaracion: Al fondo de products.router.js se encuentran comentados varios objetos para que puedas hacer el post a products facilmente con postman
+Aclaracion: Al fondo de productManager de fileManagers se encuentran comentados varios objetos para que puedas hacer el post a products facilmente con postman
+Al fondo de carts js de db managers se encunetran algunas lineas para testear parte del codigo
+
