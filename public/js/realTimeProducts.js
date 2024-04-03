@@ -34,6 +34,7 @@ addButton.addEventListener("click", () => {
 })
 
 socket.on('products', (products) => {
+    console.log("Actualizando productos")
     div.innerHTML = ""
     console.log(products)
     for(const product of products){

@@ -1,17 +1,15 @@
 const { Router } = require('express')
-const cart = require('../carts.js')
+const cart = require('../dao/dbManagers/carts.js')
 const router = Router()
 
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const products = req.body
     if(products.length >= 1){
-        cart.createCart(products)
-        .then(response => res.send(response))
+        res.send(await cart.createCart(products))
     }else{
         res.send("Envie al menos un producto")
     }
-    
     
 })
 

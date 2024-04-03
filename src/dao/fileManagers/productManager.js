@@ -151,3 +151,66 @@ class ProductManager{
 const productManager = new ProductManager(String.raw`.\test.json`)
 
 module.exports = productManager
+
+// {
+//     "title": "Sprite Zero 330ml",
+//     "description": "Refresco burbujeante con sabor a lima-limón, sin calorías y sin azúcar.",
+//     "price": 700,
+//     "thumbnail": ["www.imagen.com/sprite-zero"],
+//     "code": "s330",
+//     "stock": 30,
+//     "category": "gaseosas"
+// }
+// {
+//     "title": "Coca Cola 500ml",
+//     "description": "Esta sabroza cola premium resalta por si sola gracias a su perfecta efervecencia y buen balance de sabores",
+//     "price": 950,
+//     "thumbnail": "www.imagen.com",
+//     "code": "cc500",
+//     "stock": 43,
+//     "category": "gaseosas"
+// }
+// {
+//     "title": "Pepsi 500ml",
+//     "description": "Refrescante cola con un toque de limón, perfecta para cualquier ocasión.",
+//     "price": 850,
+//     "thumbnail": "www.imagen.com/pepsi",
+//     "code": "p500",
+//     "stock": 50,
+//     "category": "gaseosas"
+// }
+// {
+//     "title": "Sprite Zero 330ml",
+//     "description": "Refresco burbujeante con sabor a lima-limón, sin calorías y sin azúcar.",
+//     "price": 700,
+//     "thumbnail": "www.imagen.com/sprite-zero",
+//     "code": "s330",
+//     "stock": 30,
+//     "category": "gaseosas"
+// }
+// {
+//     "title": "Fanta Naranja 355ml",
+//     "description": "Bebida gaseosa con sabor a naranja natural, ideal para acompañar tus comidas.",
+//     "price": 750,
+//     "thumbnail": "www.imagen.com/fanta-naranja",
+//     "code": "f355",
+//     "stock": 60,
+//     "category": "gaseosas"
+// }
+// {
+//     "title": "Schweppes Tónica 250ml",
+//     "description": "Tónica clásica con un equilibrado sabor a quinina, perfecta para combinar con tu ginebra favorita.",
+//     "price": 600,
+//     "thumbnail": "www.imagen.com/schweppes-tonica",
+//     "code": "s250",
+//     "stock": 25,
+//     "category": "gaseosas"
+// }
+
+
+//  Codigo para probar el PUT
+// http://localhost:8080/api/products/660c3d464eb0ad95e8415901
+// {
+//   "code": "s500",
+//   "title": "Sprite Zero 500ml"
+// }

@@ -1,9 +1,17 @@
 const express = require('express')
+
+const messageModel = require("./dao/models/message.model.js")
+
 const productsRouter = require('./routes/products.router.js')
 const cartsRouter = require('./routes/carts.router.js')
+const chatRouter = require('./routes/chat.router.js')
+
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
-const productManager = require('./productManager.js')
+
+const productManager = require('./dao/dbManagers/productManager.js')
+
+const mongoose = require('mongoose')
 
 const app = express()
 
@@ -20,29 +28,71 @@ app.use(express.static('./public'))
 
 app.use('/api/carts', cartsRouter)
 app.use('/api/products', productsRouter)
+app.use('/chat', chatRouter)
 
-const httpServer = app.listen(8080, () => {
-    console.log('server listo')
-})  
 
-const wsServer = new Server(httpServer)
 
-wsServer.on("connection", (socket) => {
-    console.log(`Cliente conectado, ID ${socket.id}`)
+const main = async() => {
+    await mongoose.connect('mongodb://127.0.0.1:27017',{
+        dbName: 'ecommerce'
+    })
 
-    productManager.getProducts()
-    .then((products) => socket.emit("products", products))
+    app.set('productManager', productManager)
+
+    const httpServer = app.listen(8080, () => {
+        console.log('server listo')
+    })  
     
-    socket.on("delete", (productId) => {
-        console.log("a")
-        productManager.deleteProduct(productId)
-    })
+    
 
-    socket.on("add", (product) => {
-        console.log("test")
-        const { title, description, price, thumbnail, code, stock, category } = product
-        productManager.addProduct(title, description, price, thumbnail, code, stock, category)
-        .then((res) => console.log(res))
-    })
+    const wsServer = new Server(httpServer)
 
-})
+    wsServer.on("connection", (socket) => {
+        console.log(`Cliente conectado, ID ${socket.id}`)
+
+        productManager.getProducts()
+        .then((products) => socket.emit("products", products))
+        
+        messageModel.find()
+        .then((messages) => {socket.emit("loadMessages", messages)})
+
+
+        socket.on("delete", (productId) => {
+            productManager.deleteProduct(productId)
+            .then((res) => {
+                console.log(res)
+                productManager.getProducts()
+                .then((products) => wsServer.emit("products", products))
+            })
+            
+        })
+
+        socket.on("add", (product) => {
+            const { title, description, price, thumbnail, code, stock, category } = product
+            productManager.addProduct(title, description, price, thumbnail, code, stock, category)
+            .then((res) => console.log(res))
+            productManager.getProducts()
+            .then((products) => wsServer.emit("products", products))
+        })
+
+        socket.on("message", (messageInfo) => {
+            const { email, message } = messageInfo 
+            console.log(email, message)
+
+            if(email && message){
+                try{
+                    messageModel.create({
+                        email,
+                        message
+                    })
+                }catch(err){
+                    console.log(err)
+                }    
+            }
+            socket.broadcast.emit("newMessage", messageInfo)
+            
+        })
+    })
+} 
+
+main()
